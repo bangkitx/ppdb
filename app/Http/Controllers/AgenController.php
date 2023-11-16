@@ -255,29 +255,8 @@ class AgenController extends Controller
         $agen = $user->datapokok;
 
         $registrasi_ulang = RegistrasiUlang::where('user_id', $id)->first();
-        // return $user->registrasi_ulang;
-        // dd($registrasi_ulang);
 
         $data = [];
-
-        // $data['ijazah'] = explode("/",$registrasi_ulang->ijazah)[2];
-        // $data['surat_pernyataan_bermaterai'] = explode("/",$registrasi_ulang->surat_pernyataan_bermaterai)[2];
-        // $data['surat_keterangan_siswa_aktif_sd_asal'] = explode("/",$registrasi_ulang->surat_keterangan_siswa_aktif_sd_asal)[2];
-        // $data['pasfoto'] = explode("/",$registrasi_ulang->pasfoto)[2];
-        // $data['akta_kelahiran'] = explode("/",$registrasi_ulang->akta_kelahiran)[2];
-        // $data['kk'] = explode("/",$registrasi_ulang->kk)[2];
-
-        // dd($data);
-
-        // dd($agen->nilai);
-        // $agen = User::where('id', $id)->first();
-
-        // dd($agen->datapokok->policy);
-        // $agentest = Registration::where('user_id', 2)->first();
-        // return $agentest;
-        // dd($data);
-
-        // return $agen;
         return view('agen.show')->with(['agen' => $agen, 'user' => $user, 'data' => $data]);
     }
 
@@ -288,10 +267,11 @@ class AgenController extends Controller
         return view('agen.cetak')->with('agen', $agen);
     }
 
-    public function cetak_kartu()
+    public function cetak_kartu($id)
     {
-        $user = auth()->user();
-        $data = Datapokok::where('user_id', $user->id)->first();
+        $user = User::where('id', $id)->first();
+        $agen = $user->avatar;
+        $data = Datapokok::where('user_id', $id)->first();
         return view('siswa.cetak-kartu', ['data' => $data, 'avatar' => $user->avatar]);
     }
     public function masukNilai($id)

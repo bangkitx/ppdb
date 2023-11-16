@@ -307,14 +307,6 @@ class SiswaController extends Controller
             return abort(403, "Belom Mempunyai Nilai");
         };
 
-        // if()
-
-        // if (!is_null($siswa->datapokok)) {
-        //     return abort(404, 'Not Found');
-        // }
-
-        //   $siswa->nilai;
-        // return $agen;
         $userData = auth()->user()->id;
         $user = User::where('id', $userData)->first();
         // dd($user->datapokok->nilai->status);
@@ -331,22 +323,15 @@ class SiswaController extends Controller
 
         return view('siswa.pengumuman')->with(['siswa' => $siswa, 'agen' => $agen, 'config' => $config, 'user' => $user, 'payment' => $payment]);
     }
-
     public function cetak($id)
     {
         $agen = Datapokok::where('id', $id)->first();
-        // $test = Datapokok::where('id', $id)->first();
-        // return $agen . $test;
-        // return $agen;
         return view('agen.cetak')->with('agen', $agen);
     }
 
     public function cetakpokok($id)
     {
         $agen = Datapokok::where('id', $id)->first();
-        // $test = Datapokok::where('id', $id)->first();
-        // return $agen . $test;
-        // return $agen;
         return view('siswa.cetakpokok')->with('agen', $agen);
     }
 
@@ -359,9 +344,6 @@ class SiswaController extends Controller
         $userData = auth()->user()->id;
         $payment = Payment::where('user_id', $userData)->first();
 
-        // if (!is_null($siswa->registrasi_ulang)) {
-        //     return abort(404, 'Not Found');
-        // }
         $config = Config::where('id', 1)->first();
         if ($config->pengumuman != true) {
             return abort(403, "Config Pengumuman Masih Mati");
