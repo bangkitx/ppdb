@@ -27,9 +27,9 @@
                                         <th>Email</th>
                                         <td>
                                             <div class="input-group">
-                                                {{-- <span class="input-group-text">Email</span> --}}
                                                 <input type="text" id="email" name="email" aria-label="email"
-                                                    class="form-control" value="{{ $agen->email }}">
+                                                    class="form-control" value="{{ $agen->email }}"
+                                                    readonly>
                                             </div>
                                         </td>
                                     </tr>
