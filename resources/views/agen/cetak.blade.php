@@ -65,7 +65,7 @@
     <div class="halaman">
         <h3 id=judul>SURAT PERNYATAAN CALON WALI MURID</h3>
         <h3 id=judul>SMP TAHFIZHUL QUR'AN PANGERAN DIPONEGORO</h3>
-        <h3 id=judul>TAHUN AJARAN 20__/20__</h3>
+        <h3 id=judul>TAHUN AJARAN   {{ \Carbon\Carbon::now()->format('Y') }}/{{ \Carbon\Carbon::now()->addYear()->format('Y') }}</h3>
 
         <p>Yang bertandatangan di bawah ini:</p>
         @if ($agen->pekerjaan_ayah == "Almarhum" && $agen->pekerjaan_ibu == "Almarhum")
@@ -163,7 +163,7 @@
         @endif
 
         <p>adalah Orang Tua/Wali dari siswa calon SMP Tahfizhul Qur’an Pangeran Diponegoro Semarang
-            Tahun Ajaran 20__/20__.</p>
+            Tahun Ajaran   {{ \Carbon\Carbon::now()->format('Y') }}/{{ \Carbon\Carbon::now()->addYear()->format('Y') }}.</p>
         <table>
             <tr>
                 <td style="width: 30%;">Nama</td>
@@ -179,10 +179,10 @@
 
         <p>Menyatakan hal-hal sebagai berikut :</p>
         <p>1. Jika siswa tersebut di atas diterima/lulus dalam seleksi Penerimaan siswa SMP Tahfizhul
-            Qur’an Pangeran Diponegoro Tahun Ajaran 20__/20__, saya akan taat dan patuh sepenuhnya
+            Qur’an Pangeran Diponegoro Tahun Ajaran   {{ \Carbon\Carbon::now()->format('Y') }}/{{ \Carbon\Carbon::now()->addYear()->format('Y') }}, saya akan taat dan patuh sepenuhnya
             dengan segala kebijakan sekolah.</p>
         <p>2. Jika siswa tersebut di atas diterima/lulus dalam seleksi Penerimaan siswa SMP Tahfizhul
-            Qur’an Pangeran Diponegoro Tahun Ajaran 20__/20__, saya akan bertanggungjawab atas
+            Qur’an Pangeran Diponegoro Tahun Ajaran 2  {{ \Carbon\Carbon::now()->format('Y') }}/{{ \Carbon\Carbon::now()->addYear()->format('Y') }}, saya akan bertanggungjawab atas
             semua pembiayaan selama siswa tersebut belajar di SMP Tahfizhul Qur’an Pangeran
             Diponegoro.
         </p>

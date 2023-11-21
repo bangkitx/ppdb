@@ -49,54 +49,105 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
+
     public function count_paid_and_filled_datapokok()
     {
-        return $users = DB::table('users')
+        // Count the number of users who have made a payment and filled in their data pokok
+        $paidAndFilledDatapokok = DB::table('users')
             ->join('payments', 'users.id', '=', 'payments.user_id')
             ->join('registration', 'users.id', '=', 'registration.user_id')
-            ->select('users.*', 'payments.*', 'registration.*')
             ->where('payments.status', 2)
             ->count();
+    
+        return $paidAndFilledDatapokok;
     }
-
+    
     public function countSiswaLaki()
     {
+        // Count the number of male students
         $siswaLaki = DB::table('users')
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->where('registration.jenis_kelamin', 'laki')
             ->where('users.role', 1)
             ->count();
-
+    
         return $siswaLaki;
     }
-
+    
     public function countSiswiPerempuan()
     {
+        // Count the number of female students
         $siswiPerempuan = DB::table('users')
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->where('registration.jenis_kelamin', 'perempuan')
             ->where('users.role', 1)
             ->count();
-
+    
         return $siswiPerempuan;
     }
+    
+    public function allLulus()
+    {
+        // Count the number of all students who passed
+        $allLulus = DB::table('users')
+            ->join('registration', 'users.id', '=', 'registration.user_id')
+            ->join('testResult', 'registration.id', '=', 'testResult.datapokok_id')
+            ->where('users.role', 1)
+            ->where('testResult.status', 'Lulus')
+            ->count();
+    
+        return $allLulus;
+    }
+    
+    public function lulusSiswaLaki()
+    {
+        // Count the number of male students who passed
+        $lulusSiswaLaki = DB::table('users')
+            ->join('registration', 'users.id', '=', 'registration.user_id')
+            ->join('testResult', 'registration.id', '=', 'testResult.datapokok_id')
+            ->where('registration.jenis_kelamin', 'laki')
+            ->where('users.role', 1)
+            ->where('testResult.status', 'Lulus')
+            ->count();
+    
+        return $lulusSiswaLaki;
+    }
+    
+    public function lulusSiswiPerempuan()
+    {
+        // Count the number of female students who passed
+        $lulusSiswiPerempuan = DB::table('users')
+            ->join('registration', 'users.id', '=', 'registration.user_id')
+            ->join('testResult', 'registration.id', '=', 'testResult.datapokok_id')
+            ->where('registration.jenis_kelamin', 'perempuan')
+            ->where('users.role', 1)
+            ->where('testResult.status', 'Lulus')
+            ->count();
+    
+        return $lulusSiswiPerempuan;
+    }
+    
 
     public function index()
     {
 
         $userData = auth()->user()->id;
-
+        $config = Config::where('id', 1)->first();
         $date = Carbon::now();
         $bulan = $date->format('F');
         $tahun = $date->format('Y');
 
         return view('welcome', [
             'user' => User::find($userData),
+            'config' => $config,
             'bulan' => $bulan,
             'tahun' => $tahun,
             'count' => $this->count_paid_and_filled_datapokok(),
             'siswaLaki' => $this->countSiswaLaki(),
             'siswiPerempuan' => $this->countSiswiPerempuan(),
+            'allLulus' => $this->allLulus(),
+            'lulusSiswaLaki' => $this->lulusSiswaLaki(),
+            'lulusSiswiPerempuan' => $this->lulusSiswiPerempuan(),
         ]);
 
     }

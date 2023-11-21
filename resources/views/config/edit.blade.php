@@ -97,22 +97,17 @@
                              <td colspan="2"><input type="name" id="pesan" name="pesan" maxlength="1000"
                                 aria-label="pesan" class="form-control" value="{{ $config->pesan }}"></td>
                             </tr>
-                            {{-- <tr>
-                                <td>Surat Pernyataan</td>
-                                <td colspan="2">
-                                    
-                                <label for="upload" class="input-group-text" style="background-color: white;">
-                                         File
-                                        &nbsp;<span class="fas fa-file-upload fa-3"></span>
-                                        </label>
-                                    <input type="file" class="form-control @error('upload') is-invalid @enderror"
-                                        id="upload" name="upload" accept=".pdf" style="display: none;">
-                                    @error('upload')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                
-                                </td>
-                        </tr> --}}
+
+                            <tr>
+                                <td>Kuota Pendaftaran Perempuan</td>
+                                <td colspan="2"><input type="name" id="kuotap" name="kuotap"
+                                   aria-label="kuotap" class="form-control" value="{{ $config->kuotap }}" pattern="^[0-9]+$"></td>
+                               </tr>
+                               <tr>
+                                <td>Kuota Pendaftaran Laki-Laki</td>
+                                <td colspan="2"><input type="name" id="kuotal" name="kuotal"
+                                   aria-label="kuotal" class="form-control" value="{{ $config->kuotal }}" pattern="^[0-9]+$"></td>
+                               </tr>
                         <tr>
                             <td>Kelulusan</td>
                             <td>
@@ -134,7 +129,7 @@
                             <td>Biaya Registrasi</td>
                             <td colspan="2"><input type="name" id="nominal_pembayaran" name="nominal_pembayaran"
                                     aria-label="nominal_pembayaran" class="form-control"
-                                    value="{{ $config->nominal_pembayaran }}"></td>
+                                    value="{{ $config->nominal_pembayaran }}" pattern="^[0-9]+$"></td>
                             {{-- <td><input type="date" id="pendaftaran_ulang_due" name="pendaftaran_ulang_due" aria-label="pendaftaran_ulang_due" class="form-control" value="{{$config->pendaftaran_ulang_due}}"></td> --}}
                         </tr>
 
@@ -187,7 +182,7 @@
                         <td colspan="2">
                             <input type="name" id="order_id_midtrans" name="order_id_midtrans"
                                 aria-label="order_id_midtrans" class="form-control"
-                                value="{{ $config->order_id_midtrans }}">
+                                value="{{ $config->order_id_midtrans }}" pattern="^[0-9]+$">
                         </td>
                         {{-- </td> --}}
                         {{-- <td>{{ $config->pendaftaran_ulang_due }}</td> --}}
@@ -198,6 +193,41 @@
         <button class="btn btn-primary btn-block" type="submit">Submit perubahan</a>
 
     </form>
+    
+    <script>
+function validateNumber(input) {
+    if (input.value.match(/^[0-9]+$/)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+$(document).ready(function() {
+    $("#kuotal").on("input", function() {
+        if (!validateNumber(this)) {
+            this.value = this.value.replace(/[^0-9]/g, "");
+        }
+    });
+
+    $("#kuotap").on("input", function() {
+        if (!validateNumber(this)) {
+            this.value = this.value.replace(/[^0-9]/g, "");
+        }
+    });
+    $("#nominal_pembayaran").on("input", function() {
+        if (!validateNumber(this)) {
+            this.value = this.value.replace(/[^0-9]/g, "");
+        }
+    });
+    $("#order_id_midtrans").on("input", function() {
+        if (!validateNumber(this)) {
+            this.value = this.value.replace(/[^0-9]/g, "");
+        }
+    });
+});
+
+</script>
     <script>
         const avatarInput = document.getElementById('upload');
         const avatarLabel = document.querySelector('label[for="upload"]');

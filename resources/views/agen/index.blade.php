@@ -19,7 +19,7 @@
                                 <input type="text" class="form-control bg-light border-0 small" name="cari"
                                     placeholder="Cari siswa..." value="{{ request()->get('cari') }}">
                                 <input type="text" class="form-control bg-light border-0 small" name="tahun"
-                                    placeholder="Tahun" value="{{ request()->get('tahun') }}">
+                                    placeholder="Tahun" value="{{ request()->get('tahun') }}" id="tahun" pattern="^[0-9]+$">
                                 {{-- Filter Gelombang dengan Dropdown Select --}}
                                 <select class="form-control bg-light border-0 small" name="gelombang">
                                     <option value="">Pilih Gelombang...</option>
@@ -89,14 +89,7 @@
                                                 {{-- {{ $item->datapokok }} --}}
                                             </td>
                                             <td>{{ $item->created_at }}</td>
-                                            {{-- <td>{{ $item->updated_at }}</td> --}}
-                                            {{-- <td>{{ $item->role }}</td> --}}
-                                            {{-- @if ($item->role == '1')
-                                            <td>Admin</td>
-                                        @else
-                                            <td>Member</td>
-
-                                        @endif --}}
+                                         
                                             <td>
                                                 @if (empty($item->datapokok))
                                                     <form method="POST" action="{{ url('/agen' . '/' . $item->id) }}"
@@ -189,5 +182,21 @@
             </div>
         </div> --}}
     </div>
-    <script></script>
+    <script>
+    $(document).ready(function() {
+        $("#tahun").on("input", function() {
+            if (!validateNumber(this)) {
+                this.value = this.value.replace(/[^0-9]/g, "");
+            }
+        });
+    });
+    
+    function validateNumber(input) {
+        if (input.value.match(/^[0-9]+$/)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    </script>
 @endsection

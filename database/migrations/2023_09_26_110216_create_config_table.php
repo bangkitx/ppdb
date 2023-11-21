@@ -31,7 +31,8 @@ return new class extends Migration
             $table->boolean('pengumuman')->default(0);
             $table->string('redirect_wa')->nullable();
             $table->string('pesan')->nullable();
-            $table->string('upload')->nullable();
+            $table->string('kuotap')->nullable();
+            $table->string('kuotal')->nullable();
             $table->bigInteger('nominal_pembayaran')->nullable();
             $table->string('midtrans_merchant_id');
             $table->string('midtrans_client_key');
