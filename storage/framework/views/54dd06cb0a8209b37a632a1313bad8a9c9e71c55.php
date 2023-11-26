@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title>Login - {{ config('app.name', 'Laravel') }}</title>
+    <title>Login - <?php echo e(config('app.name', 'Laravel')); ?></title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -16,7 +16,7 @@
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss', 'resources/js/app.js']); ?>
 </head>
 
 <body class="bg-gradient-primary">
@@ -39,28 +39,44 @@
                                         <h1 class="h4 text-gray-900 mb-4">Login Siswa PPDB SMPTQ Pangeran Diponegoro
                                         </h1>
                                     </div>
-                                    @if (session('flash_message'))
+                                    <?php if(session('flash_message')): ?>
                                         <div class="alert alert-success">
-                                            {{ session('flash_message') }}
+                                            <?php echo e(session('flash_message')); ?>
+
                                         </div>
-                                    @elseif (session('flash_message_danger'))
+                                    <?php elseif(session('flash_message_danger')): ?>
                                         <div class="alert alert-danger">
-                                            {{ session('flash_message_danger') }}
+                                            <?php echo e(session('flash_message_danger')); ?>
+
                                         </div>
-                                    @endif
-                                    <form method="POST" action="{{ route('login') }}">
-                                        @csrf
+                                    <?php endif; ?>
+                                    <form method="POST" action="<?php echo e(route('login')); ?>">
+                                        <?php echo csrf_field(); ?>
                                         <div class="form-group">
                                             <input id="email" type="email"
-                                                class="form-control @error('email') is-invalid @enderror"
-                                                placeholder="Email" name="email" value="{{ old('email') }}" required
+                                                class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                                                placeholder="Email" name="email" value="<?php echo e(old('email')); ?>" required
                                                 autocomplete="email" autofocus>
 
-                                            @error('email')
+                                            <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                                    <strong><?php echo e($message); ?></strong>
                                                 </span>
-                                            @enderror
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" id="password" class="form-control form-control-user"
@@ -73,12 +89,14 @@
                                                     id="togglePassword">
 
                                                 <label class="form-check-label" for="remember" >
-                                                    {{ __('Lihat sandi') }}
+                                                    <?php echo e(__('Lihat sandi')); ?>
+
                                             </div>
                                         </div>
                                         <hr>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            {{ __('Login') }}
+                                            <?php echo e(__('Login')); ?>
+
                                         </button>
                                     </form>
 
@@ -86,17 +104,18 @@
                                   
                                     <div class="text-center">
                                         <a class="btn btn-link" 
-                                            href="{{ route('register') }}" style="color: #000;">{{ __('Belum punya akun? Buat akun sekarang!') }}</a>
+                                            href="<?php echo e(route('register')); ?>" style="color: #000;"><?php echo e(__('Belum punya akun? Buat akun sekarang!')); ?></a>
                                     </div>
                         
                                     <div class="text-center">
 
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}" style="color: #000;">
-                                            {{ __('Lupa Password?') }}
+                                    <?php if(Route::has('password.request')): ?>
+                                        <a class="btn btn-link" href="<?php echo e(route('password.request')); ?>" style="color: #000;">
+                                            <?php echo e(__('Lupa Password?')); ?>
+
                                         </a>
-                                    @endif
-                                    {{-- @endif --}}
+                                    <?php endif; ?>
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -137,3 +156,4 @@
 </body>
 
 </html>
+<?php /**PATH D:\ppdb\resources\views/auth/login.blade.php ENDPATH**/ ?>

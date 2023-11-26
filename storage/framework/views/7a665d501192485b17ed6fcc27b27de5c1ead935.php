@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title>Register - {{ config('app.name', 'Laravel') }}</title>
+    <title>Register - <?php echo e(config('app.name', 'Laravel')); ?></title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,7 +18,7 @@
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss', 'resources/js/app.js']); ?>
 </head>
 
 <body class="bg-gradient-primary">
@@ -41,44 +41,86 @@
                                         <h1 class="h4 text-gray-900 mb-4">Register Siswa PPDB SMPTQ Pangeran Diponegoro
                                         </h1>
                                     </div>
-                                    <form method="POST" action="{{ route('register') }}">
-                                        @csrf
+                                    <form method="POST" action="<?php echo e(route('register')); ?>">
+                                        <?php echo csrf_field(); ?>
                                         <div class="form-group">
                                             <input id="name" type="text"
-                                                class="form-control @error('name') is-invalid @enderror" name="name"
-                                                value="{{ old('name') }}" required autocomplete="name"
+                                                class="form-control <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="name"
+                                                value="<?php echo e(old('name')); ?>" required autocomplete="name"
                                                 placeholder="Nama Lengkap" autofocus>
 
-                                            @error('name')
+                                            <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                                    <strong><?php echo e($message); ?></strong>
                                                 </span>
-                                            @enderror
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                         <div class="form-group">
                                             <input id="email" type="email"
-                                                class="form-control @error('email') is-invalid @enderror" name="email"
-                                                value="{{ old('email') }}" required autocomplete="email"
+                                                class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="email"
+                                                value="<?php echo e(old('email')); ?>" required autocomplete="email"
                                                 placeholder="Email">
 
-                                            @error('email')
+                                            <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                                    <strong><?php echo e($message); ?></strong>
                                                 </span>
-                                            @enderror
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <input id="password" type="password"
-                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    class="form-control <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
                                                     name="password" required autocomplete="new-password"
                                                     placeholder="Password">
 
-                                                @error('password')
+                                                <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                                     <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
+                                                        <strong><?php echo e($message); ?></strong>
                                                     </span>
-                                                @enderror
+                                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                             </div>
                                             <div class="col-sm-6">
                                                 <input id="password-confirm" type="password" class="form-control"
@@ -92,17 +134,19 @@
                                                 <input class="form-check-input" type="checkbox" name="togglePassword" id="togglePassword">
 
                                                     <label class="form-check-label" for="remember">
-                                                        {{ __('Lihat sandi') }}
+                                                        <?php echo e(__('Lihat sandi')); ?>
+
                                             </div>
                                         </div>
                                         <hr>
                                         <button type="submit" class="btn btn-primary btn-block" >
-                                            {{ __('Register') }}
+                                            <?php echo e(__('Register')); ?>
+
                                         </button>
                                         <hr>
                                     </form>
                                     <div class="text-center">
-                                        <a href="{{ route('login') }}" class="btn btn-link" style="color: #000;">Sudah punya akun? Login!</a>
+                                        <a href="<?php echo e(route('login')); ?>" class="btn btn-link" style="color: #000;">Sudah punya akun? Login!</a>
                                     </div>
                                     
                                 </div>
@@ -151,3 +195,4 @@
 </body>
 
 </html>
+<?php /**PATH D:\ppdb\resources\views/auth/register.blade.php ENDPATH**/ ?>
