@@ -57,10 +57,6 @@
                                     <td>Email</td>
                                     <td>{{ $agen->email }}</td>
                                 </tr>
-                                <tr>
-                                    <td>Kata Sandi</td>
-                                    <td>*******</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

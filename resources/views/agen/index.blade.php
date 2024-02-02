@@ -62,7 +62,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($agen as $key => $item)
+                                    @foreach ($agen->where('role', '!=', 0) as $key => $item)
                                         <tr>
                                             <td>{{ $agen->firstItem() + $key }}</td>
                                             <td>{{ $item->name }}</td>
@@ -89,7 +89,6 @@
                                                 {{-- {{ $item->datapokok }} --}}
                                             </td>
                                             <td>{{ $item->created_at }}</td>
-                                         
                                             <td>
                                                 @if (empty($item->datapokok))
                                                     <form method="POST" action="{{ url('/agen' . '/' . $item->id) }}"
@@ -114,8 +113,7 @@
                                                                 class="fa fa-trash" aria-hidden="true"></i></button>
                                                     </form>
                                                 @elseif ($item->role == 0)
-                                                    Admin Account
-
+                                                    admin
                                                     {{-- @elseif ($item->) --}}
                                                 @else
                                                     <a href="{{ url('/agen/nilai/' . $item->id) }}"
@@ -199,4 +197,5 @@
         }
     }
     </script>
+
 @endsection
