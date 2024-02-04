@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgenController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\PaymentController;
@@ -46,8 +47,11 @@ Route::middleware(['auth'])->group(function () {
     // });
     Route::get('/bayar', [PaymentController::class, 'bayar'])->name('bayar');
     Route::get('/agen/bin', [AgenController::class, 'bin'])->name('agen.bin');
+    Route::get('/admin/bin', [AdminController::class, 'bin'])->name('admin.bin');
     Route::post('/agen/bin/{id}', [AgenController::class, 'restore'])->name('agen.restore');
     Route::delete('/agen/bin/{id}', [AgenController::class, 'forceDelete'])->name('agen.forceDelete');
+    Route::post('/admin/bin/{id}', [AdminController::class, 'restore'])->name('agen.restore');
+    Route::delete('/admin/bin/{id}', [AdminController::class, 'forceDelete'])->name('agen.forceDelete');
     Route::resource('/agen', AgenController::class);
     Route::resource('/siswa', SiswaController::class)->except(['show', 'edit', 'update']);
 
@@ -67,31 +71,22 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/registrasi_ulang', RegistrasiUlangController::class);
 });
 
-Route::middleware(['admin:1'])->group(function () {
-    Route::get('/siswa', 'SiswaController@index')->name('siswa');
-    Route::get('/siswa/edit', [SiswaController::class, 'edit']);
-    Route::get('/siswa/cetak-kartu', [SiswaController::class, 'cetak_kartu'])->name('siswa.cetak_kartu');
-    Route::post('/siswa/update', [SiswaController::class, 'update'])->name('siswa.update');
-    Route::resource('/siswa', SiswaController::class)->except(['show', 'edit', 'update']);
-    Route::resource('/registrasi_ulang', RegistrasiUlangController::class);
-    Route::get('/siswa/pengumuman/{id}', [SiswaController::class, 'pengumuman']);
-    Route::get('/siswa/registrasi/{id}', [SiswaController::class, 'registrasiUlang']);
-});
-
 Route::middleware(['admin:0'])->group(function () {
-    // Route::get('/', [SiswaController::class,'awal']);
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::resource('/agen', AgenController::class);
+    Route::resource('/admin', AdminController::class);
     Route::get('/config', [ConfigController::class, 'index']);
     Route::get('/config/edit', [ConfigController::class, 'edit']);
     Route::put('/config/update', [ConfigController::class, 'update']);
-    // Route::get('/excel/sudah-bayar', [SiswaController::class, 'export_sudah_bayar']);
 
+});
+
+// Rute untuk admin:0
+Route::middleware(['admin:0,2'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('/agen', AgenController::class);
     Route::get('/excel/sudah-bayar', [AgenController::class, 'exportSiswaSudahBayar']);
     Route::get('/excel/sudah-lulus', [AgenController::class, 'export_sudah_lulus']);
     Route::get('/excel/tidak-lulus', [AgenController::class, 'export_tidak_lulus']);
     Route::get('/excel/registrasi-ulang', [AgenController::class, 'export_siswa_sudah_registrasi_ulang']);
-
 });
 
 Auth::routes();

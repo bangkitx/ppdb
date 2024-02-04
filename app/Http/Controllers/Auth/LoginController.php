@@ -18,7 +18,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -41,10 +41,10 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        if (Auth::user()->role === 0) {
+        if (Auth::user()->role === 0 || Auth::user()->role === 2) {
             return RouteServiceProvider::ADMIN;
         } elseif (Auth::user()->role === 1) {
             return RouteServiceProvider::SISWA;
-        } 
+        }
     }
 }

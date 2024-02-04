@@ -2,11 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
-use Closure;
 use Auth;
+use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class AdminMiddleware
 {
@@ -15,24 +13,19 @@ class AdminMiddleware
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @param  mixed  ...$roles
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle($request, Closure $next,$role)
+    public function handle($request, Closure $next, ...$roles)
     {
         if (!auth()->check()) {
-            // Pengguna sudah login, lanjutkan ke request selanjutnya
             return redirect('/login');
         }
 
+        $user = auth()->user();
 
-        $userId = auth()->id(); // ID pengguna yang saat ini masuk
-        
-        $user = User::find($userId);
-
-        // dd($role);
-        if ($user) {
-            $databaseValue = $user->role; // Ganti dengan nama kolom di database Anda
-            if ($databaseValue === (int)$role) {
+        foreach ($roles as $role) {
+            if ((int) $user->role === (int) $role) {
                 return $next($request);
             }
         }

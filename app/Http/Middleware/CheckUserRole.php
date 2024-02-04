@@ -24,6 +24,9 @@ class CheckUserRole
             } elseif ($user->role === 1) {
                 // User role is 1, redirect to '/siswa'
                 return redirect('/siswa');
+            } elseif ($user->role === 2) {
+                // User role is 2, redirect to '/admin'
+                return redirect('/home');
             }
         }
 

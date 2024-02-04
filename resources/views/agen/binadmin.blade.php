@@ -14,7 +14,7 @@
             <form method="GET" class="form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right">
                 <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small" name="cari" id="cari"
-                        placeholder="Cari siswa..." value={{ request()->get('cari') }}>
+                        placeholder="Cari admin..." value={{ request()->get('cari') }}>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search fa-sm"></i>
@@ -36,8 +36,6 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Email</th>
-                            <th>Status Bayar</th>
-                            <th>Status Pendaftaran</th>
                             <th>Tanggal Dibuat</th>
                             <th>Aksi</th>
                         </tr>
@@ -46,30 +44,11 @@
                         @php
                             $counter = 0;
                         @endphp
-                        @foreach ($agen->whereNotIn('role', [0, 3]) as $key => $item)
+                        @foreach ($agen->where('role', 2) as $key => $item)
                             <tr>
                                 <td>{{ ++$counter }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>
-                                    @if ($item->payment == '[]')
-                                        Belum
-                                        {{-- @elseif ($item->payment->status_payment !== 2 && $item->payment->status !== 2)
-                                                Proses bayar --}}
-                                    @else
-                                        Sudah
-                                    @endif
-                                    {{-- {{ $item->payment }} --}}
-                                </td>
-                                <td>
-                                    @if (empty($item->datapokok))
-                                        Belum
-                                    @elseif (is_null($item->datapokok))
-                                        Belum
-                                    @else
-                                        Sudah
-                                    @endif
-                                </td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>
                                     <form method="POST" action="{{ route('agen.restore', $item->id) }}"
@@ -77,8 +56,8 @@
                                         style="display:inline-block;
                                                     margin: 5px;">
                                         {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-warning btn-sm" title="Restore Siswa"
-                                            onclick="return confirm(&quot;Apakah anda ingin memulihkan data siswa {{ $item->name }}?&quot;)"><i
+                                        <button type="submit" class="btn btn-warning btn-sm" title="Restore Admin"
+                                            onclick="return confirm(&quot;Apakah anda ingin memulihkan data admin {{ $item->name }}?&quot;)"><i
                                                 class="fa fa-trash-restore" aria-hidden="true"></i></button>
                                     </form>
                                     {{-- <a href="{{ url('/agen/' . $item->id . '/edit') }}" title="Edit Agen"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a> --}}
@@ -88,8 +67,8 @@
                                                     margin: 5px;">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete Siswa"
-                                            onclick="return confirm(&quot;Apakah anda ingin menghapus data siswa {{ $item->name }}?&quot;)"><i
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete Admin"
+                                            onclick="return confirm(&quot;Apakah anda ingin menghapus data admin {{ $item->name }}?&quot;)"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></button>
                                     </form>
                                 </td>
@@ -102,18 +81,10 @@
                         Showing {{ $agen->firstItem() }} to {{ $agen->lastItem() }} of {{ $agen->total() }}
                     </div>
                     <div class="col-md-4">
-                        {{-- {{ $siswa->links() }} --}}
                         {{ $agen->links() }}
                     </div>
                 </div>
-                {{-- <div class="row">
-                                <a href="/excel/sudah-bayar" class="btn btn-success btn-block">Daftar siswa Sudah bayar
-                                    (Download XLSX)</a>
-                                <a href="/excel/sudah-lulus" class="btn btn-success btn-block">Daftar siswa Sudah lulus
-                                    (Download XLSX)</a>
-                                <a href="/excel/tidak-lulus" class="btn btn-success btn-block">Daftar siswa Tidak lulus
-                                    (Download XLSX)</a>
-                            </div> --}}
+
             </div>
             {{-- </div>
                 </div>

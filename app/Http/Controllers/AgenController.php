@@ -63,7 +63,7 @@ class AgenController extends Controller
 
     public function index(Request $request)
     {
-        $query = User::withoutTrashed();
+        $query = User::withoutTrashed()->whereNotIn('role', [0, 2]);
 
         // Mencari berdasarkan nama
         if ($search = $request->input('cari')) {
@@ -424,7 +424,6 @@ class AgenController extends Controller
     public function restore($id)
     {
         $user = User::onlyTrashed()->findOrFail($id);
-
         $user->restore();
 
         return redirect('agen/bin')->with('status', 'Siswa ' . $user->name . ' berhasil dikembalikan!');
