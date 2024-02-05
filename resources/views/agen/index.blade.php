@@ -114,13 +114,11 @@
                                                 onclick="return confirm(&quot;Apakah anda ingin menghapus data siswa {{ $item->name }}?&quot;)"><i
                                                     class="fa fa-trash" aria-hidden="true"></i></button>
                                         </form>
-                                    @elseif (Auth::user()->role == 0 || Auth::user()->role == 2)
-                                        admin
                                         {{-- @elseif ($item->) --}}
                                     @else
                                         <a href="{{ url('/agen/nilai/' . $item->id) }}"
                                             title="Tambah Kelulusan Siswa"><button class="btn btn-success btn-sm "style="display:inline-block;
-                                                                                            margin: 3px;"><i
+                                                                                                    margin: 3px;"><i
                                                     class="fa fa-plus-square" aria-hidden="true"></i></button></a>
 
                                         <a target="_blank" href="{{ url('/agen/cetak-kartu/' . $item->id) }}"
@@ -132,12 +130,12 @@
                                         </a>
                                         <a href="{{ url('/agen/' . $item->id) }}" title="Lihat Siswa"><button
                                                 class="btn btn-info btn-sm"style="display:inline-block;
-                                                                                            margin: 3px;"><i
+                                                                                                    margin: 3px;"><i
                                                     class="fa fa-eye" aria-hidden="true"></i></button></a>
                                         <a href="{{ url('/agen/' . $item->id . '/edit') }}"
                                             title="Edit Data Pendaftar"><button class="btn btn-primary btn-sm"style="display:inline-block;
-                                                                                        margin: 3px;"><i class="fa fa-pen"
-                                                    aria-hidden="true"></i>
+                                                                                                margin: 3px;"><i
+                                                    class="fa fa-pen" aria-hidden="true"></i>
                                             </button></a>
                                         <form method="POST" action="{{ url('/agen' . '/' . $item->id) }}"
                                             accept-charset="UTF-8"
