@@ -67,7 +67,8 @@
                             <div class="col-md-5 d-flex justify-content-start align-items-center">
                                 <span class="text-start">No. Peserta:</span>
                             </div>
-                            <div class="col-md-5 d-flex justify-content-start align-items-center "><?php echo e($agen->nomor_peserta); ?>
+                            <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                                <?php echo e($agen->nomor_peserta); ?>
 
                             </div>
                         </div>
@@ -82,16 +83,15 @@
                         </div>
                         <br>
                         <div class="col-md-9 d-flex justify-content-start align-items-center">
-                        <?php if($date_now > $config->pendaftaran_akun_ppdb_due): ?>
-                            <span class="alert alert-danger alert-block">Pendaftaran telah ditutup </span>
-                            
-                        <?php else: ?>
-                            <a target="_blank" href="<?php echo e(route('siswa.cetak_kartu')); ?>"
-                                class="btn btn-primary btn-sm btn-block">
-                                <span class="fa fa-print"></span>
-                                <span class="ml-2">Cetak Kartu Peserta</span>
-                            </a>
-                        <?php endif; ?>
+                            <?php if($date_now > $config->pendaftaran_akun_ppdb_due): ?>
+                                <span class="alert alert-danger alert-block">Pendaftaran telah ditutup </span>
+                            <?php else: ?>
+                                <a target="_blank" href="<?php echo e(route('siswa.cetak_kartu', ['id' => $user->id])); ?>"
+                                    class="btn btn-primary btn-sm btn-block">
+                                    <span class="fa fa-print"></span>
+                                    <span class="ml-2">Cetak Kartu Peserta</span>
+                                </a>
+                            <?php endif; ?>
                         </div>
                         </p>
                     </div>
@@ -100,19 +100,21 @@
         </div>
     </div>
     <div class="alert alert-success" role="alert">
-        <?php if($date_now > $config->pendaftaran_akun_ppdb_due && $agen == 'NULL' ): ?>
-        <h4 class="alert-heading text-center">📢 Pengumuman Informasi Penting </h4>
-        <p> <?php echo e($config->pesan); ?> </p>
-         <?php elseif($config->pengumuman == 1 && $agen == 'NULL'): ?>
-         <h4 class="alert-heading text-center">📢 Pengumuman Informasi Penting </h4>
-         <p> <?php echo e($config->pesan); ?> </p>
+        <?php if($date_now > $config->pendaftaran_akun_ppdb_due && $agen == 'NULL'): ?>
+            <h4 class="alert-heading text-center">📢 Pengumuman Informasi Penting </h4>
+            <p> <?php echo e($config->pesan); ?> </p>
+        <?php elseif($config->pengumuman == 1 && $agen == 'NULL'): ?>
+            <h4 class="alert-heading text-center">📢 Pengumuman Informasi Penting </h4>
+            <p> <?php echo e($config->pesan); ?> </p>
         <?php else: ?>
-        <h4 class="alert-heading text-center">📢 Pengumuman Informasi Penting </h4>
-        <p> <?php echo e($config->pesan); ?> </p>
-        <div> <p> Silakan kunjungi tautan berikut untuk bergabung: <a href="<?php echo e($config->redirect_wa); ?>" target="_blank"
-            rel="nofollow">Join Grup WhatsApp</a></div>
+            <h4 class="alert-heading text-center">📢 Pengumuman Informasi Penting </h4>
+            <p> <?php echo e($config->pesan); ?> </p>
+            <div>
+                <p> Silakan kunjungi tautan berikut untuk bergabung: <a href="<?php echo e($config->redirect_wa); ?>" target="_blank"
+                        rel="nofollow">Join Grup WhatsApp</a>
+            </div>
         <?php endif; ?>
-        
+
         
     </div>
     <?php if(session('flash_message')): ?>
@@ -135,35 +137,35 @@
                         <form action="<?php echo e(route('payment.store')); ?>" method="post">
                             <?php echo csrf_field(); ?>
                             <?php if($date_now > $config->pendaftaran_akun_ppdb_due && $agen == 'NULL'): ?>
-                            <img src="/images/bayar1.png" class="card-img-top" alt="...">
+                                <img src="/images/bayar1.png" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <span class="alert alert-danger alert-sm">Pembayaran ditutup</span>
                                 </div>
-                            <?php elseif($config->pengumuman == 1 && !isset($payment)): ?> 
-                            <img src="/images/bayar1.png" class="card-img-top" alt="...">
+                            <?php elseif($config->pengumuman == 1 && !isset($payment)): ?>
+                                <img src="/images/bayar1.png" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <span class="alert alert-danger alert-sm">Pembayaran ditutup</span>
                                 </div>
                             <?php else: ?>
-                            <?php if(empty($payment)): ?>
-                                <img src="/images/bayar1.png" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Pembayaran</h5>
-                                    <button type="submit" class="btn btn-danger btn-sm btn-block">Belum bayar</button>
-                                </div>
-                            <?php elseif($payment->status_payment !== 2 && $payment->status !== 2): ?>
-                                <img src="/images/bayar1.png" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Pembayaran</h5>
-                                    <a href="/bayar" class="btn btn-danger btn-sm btn-block">Selesaikan pembayaran</a>
-                                </div>
-                            <?php else: ?>
-                                <img src="/images/bayar2.png" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Pembayaran</h5>
-                                    <button class="btn btn-success btn-sm btn-block" disabled>Sudah bayar</button>
-                                </div>
-                            <?php endif; ?>
+                                <?php if(empty($payment)): ?>
+                                    <img src="/images/bayar1.png" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pembayaran</h5>
+                                        <button type="submit" class="btn btn-danger btn-sm btn-block">Belum bayar</button>
+                                    </div>
+                                <?php elseif($payment->status_payment !== 2 && $payment->status !== 2): ?>
+                                    <img src="/images/bayar1.png" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pembayaran</h5>
+                                        <a href="/bayar" class="btn btn-danger btn-sm btn-block">Selesaikan pembayaran</a>
+                                    </div>
+                                <?php else: ?>
+                                    <img src="/images/bayar2.png" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pembayaran</h5>
+                                        <button class="btn btn-success btn-sm btn-block" disabled>Sudah bayar</button>
+                                    </div>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </form>
                     </div>
@@ -172,42 +174,42 @@
                     <div class="card border-0 shadow rounded-lg mx-2" style="max-width: 300px;">
                         <?php if($date_now > $config->pendaftaran_akun_ppdb_due && $agen == 'NULL'): ?>
                             <img src="/images/daftar1.png" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <span class="alert alert-danger alert-sm">Pendaftaran ditutup</span>
-                                </div>
-                                <?php elseif($config->pengumuman == 1 && $agen == 'NULL'): ?>
+                            <div class="card-body">
+                                <span class="alert alert-danger alert-sm">Pendaftaran ditutup</span>
+                            </div>
+                        <?php elseif($config->pengumuman == 1 && $agen == 'NULL'): ?>
+                            <img src="/images/daftar1.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <span class="alert alert-danger alert-sm">Pendaftaran ditutup</span>
+                            </div>
+                        <?php else: ?>
+                            <?php if(empty($payment)): ?>
                                 <img src="/images/daftar1.png" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <span class="alert alert-danger alert-sm">Pendaftaran ditutup</span>
-                                        </div>
-        
-
-                        <?php else: ?>
-                        <?php if(empty($payment)): ?>
-                            <img src="/images/daftar1.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Data Pendaftaran</h5>
-                                <button class="btn btn-warning btn-sm btn-block" disabled>Bayar terlebih dahulu</button>
-                            </div>
-                        <?php elseif($payment->status_payment !== 2 && $payment->status !== 2): ?>
-                            <img src="/images/daftar1.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Data Pendaftaran</h5>
-                                <button class="btn btn-warning btn-sm btn-block" disabled>Bayar terlebih dahulu</button>
-                            </div>
-                        <?php elseif($agen == 'NULL'): ?>
-                            <img src="/images/daftar1.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Data Pendaftaran</h5>
-                                <a href="/siswa/create" class="btn btn-danger btn-sm btn-block">Belum Isi</a>
-                            </div>
-                        <?php else: ?>
-                            <img src="/images/daftar2.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Data Pendaftaran</h5>
-                                <button class="btn btn-success btn-sm btn-block" disabled>Sukses</button>
-                            </div>
-                        <?php endif; ?>
+                                <div class="card-body">
+                                    <h5 class="card-title">Data Pendaftaran</h5>
+                                    <button class="btn btn-warning btn-sm btn-block" disabled>Bayar terlebih
+                                        dahulu</button>
+                                </div>
+                            <?php elseif($payment->status_payment !== 2 && $payment->status !== 2): ?>
+                                <img src="/images/daftar1.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Data Pendaftaran</h5>
+                                    <button class="btn btn-warning btn-sm btn-block" disabled>Bayar terlebih
+                                        dahulu</button>
+                                </div>
+                            <?php elseif($agen == 'NULL'): ?>
+                                <img src="/images/daftar1.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Data Pendaftaran</h5>
+                                    <a href="/siswa/create" class="btn btn-danger btn-sm btn-block">Belum Isi</a>
+                                </div>
+                            <?php else: ?>
+                                <img src="/images/daftar2.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Data Pendaftaran</h5>
+                                    <button class="btn btn-success btn-sm btn-block" disabled>Sukses</button>
+                                </div>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -343,4 +345,5 @@
         });
     </script>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts/main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\ppdb\resources\views/siswa/index.blade.php ENDPATH**/ ?>
