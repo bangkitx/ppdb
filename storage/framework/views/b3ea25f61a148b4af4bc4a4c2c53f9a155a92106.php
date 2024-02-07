@@ -7,15 +7,15 @@
     </button>
 
     <!-- Topbar Search -->
-    
+
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
-        
+
 
         <!-- Nav Item - Messages -->
-        
+
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -29,7 +29,7 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 
-                <?php if(Auth::user()->role == 0 || Auth::user()->role == 2): ?>
+                <?php if (Auth::user()->role == 'Administrator'): ?>
                     <a class="dropdown-item" href="/profile">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profil
@@ -43,8 +43,8 @@
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profil
                     </a>
-                <?php endif; ?>
-                
+                <?php endif;?>
+
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -70,4 +70,4 @@
     }
 </script>
 <!-- End of Topbar -->
-<?php /**PATH C:\laragon\www\ppdb\resources\views/partials/navbar.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\ppdb\resources\views/partials/navbar.blade.php ENDPATH**/?>

@@ -11,7 +11,7 @@
 
     <!-- Content Row -->
     <div class="row">
-        @if (Auth::user()->role == 0)
+        @if (Auth::user()->role == 'Administrator')
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -31,243 +31,125 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total peserta mendaftar</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $count }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-user fa-2x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Siswa mendaftar</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $siswaLaki }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-male fa-3x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Siswi mendaftar</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $siswiPerempuan }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-female fa-3x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total peserta lulus</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $allLulus }} / {{ $totalKuota = $config->kuotap + $config->kuotal }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-user fa-2x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Siswa lulus</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $lulusSiswaLaki }} / {{ $config->kuotal }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-male fa-3x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Siswi lulus</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $lulusSiswiPerempuan }} / {{ $config->kuotap }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-female fa-3x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @else
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total peserta mendaftar</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $count }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-user fa-2x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Siswa mendaftar</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $siswaLaki }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-male fa-3x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Siswi mendaftar</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $siswiPerempuan }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-female fa-3x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total peserta lulus</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $allLulus }} / {{ $totalKuota = $config->kuotap + $config->kuotal }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-user fa-2x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Siswa lulus</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $lulusSiswaLaki }} / {{ $config->kuotal }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-male fa-3x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Siswi lulus</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <h2>{{ $lulusSiswiPerempuan }} / {{ $config->kuotap }}</h2>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa fa-female fa-3x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         @endif
 
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total peserta mendaftar</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <h2>{{ $count }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-user fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Siswa mendaftar</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <h2>{{ $siswaLaki }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-male fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Siswi mendaftar</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <h2>{{ $siswiPerempuan }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-female fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total peserta lulus</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <h2>{{ $allLulus }} / {{ $totalKuota = $config->kuotap + $config->kuotal }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-user fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Siswa lulus</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <h2>{{ $lulusSiswaLaki }} / {{ $config->kuotal }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-male fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Siswi lulus</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <h2>{{ $lulusSiswiPerempuan }} / {{ $config->kuotap }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-female fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

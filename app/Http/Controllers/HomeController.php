@@ -49,7 +49,6 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-
     public function count_paid_and_filled_datapokok()
     {
         // Count the number of users who have made a payment and filled in their data pokok
@@ -58,47 +57,47 @@ class HomeController extends Controller
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->where('payments.status', 2)
             ->count();
-    
+
         return $paidAndFilledDatapokok;
     }
-    
+
     public function countSiswaLaki()
     {
         // Count the number of male students
         $siswaLaki = DB::table('users')
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->where('registration.jenis_kelamin', 'laki')
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->count();
-    
+
         return $siswaLaki;
     }
-    
+
     public function countSiswiPerempuan()
     {
         // Count the number of female students
         $siswiPerempuan = DB::table('users')
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->where('registration.jenis_kelamin', 'perempuan')
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->count();
-    
+
         return $siswiPerempuan;
     }
-    
+
     public function allLulus()
     {
         // Count the number of all students who passed
         $allLulus = DB::table('users')
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->join('testResult', 'registration.id', '=', 'testResult.datapokok_id')
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->where('testResult.status', 'Lulus')
             ->count();
-    
+
         return $allLulus;
     }
-    
+
     public function lulusSiswaLaki()
     {
         // Count the number of male students who passed
@@ -106,13 +105,13 @@ class HomeController extends Controller
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->join('testResult', 'registration.id', '=', 'testResult.datapokok_id')
             ->where('registration.jenis_kelamin', 'laki')
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->where('testResult.status', 'Lulus')
             ->count();
-    
+
         return $lulusSiswaLaki;
     }
-    
+
     public function lulusSiswiPerempuan()
     {
         // Count the number of female students who passed
@@ -120,13 +119,12 @@ class HomeController extends Controller
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->join('testResult', 'registration.id', '=', 'testResult.datapokok_id')
             ->where('registration.jenis_kelamin', 'perempuan')
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->where('testResult.status', 'Lulus')
             ->count();
-    
+
         return $lulusSiswiPerempuan;
     }
-    
 
     public function index()
     {

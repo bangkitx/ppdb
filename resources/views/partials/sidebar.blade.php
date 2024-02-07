@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    @if (Auth::user()->role == 0 || Auth::user()->role == 2)
+    @if (Auth::user()->role == 'Administrator')
         <a class="sidebar-brand d-flex align-items-center justify-content-center mt-3" href="/home">
             <div class="sidebar-brand-text mx-3">PPDB SMP SMPTQ Pangeran Diponegoro</div>
         </a>
@@ -16,7 +16,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0 mt-3">
 
-    @if (Auth::user()->role == 0 || Auth::user()->role == 2)
+    @if (Auth::user()->role == 'Administrator' || Auth::user()->role == 'Admin')
         <li class="nav-item {{ Request::is('/home') ? 'active' : '' }}">
             <a class="nav-link {{ Request::is('/home') ? 'active' : '' }}" href="/home">
                 <i class="fa fa-graduation-cap"></i>
@@ -51,27 +51,19 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                @if (Auth::user()->role == 0)
-                    <h6 class="collapse-header">Admin:</h6>
+                @if (Auth::user()->role == 'Administrator')
+                    <h6 class="collapse-header">Fitur Admin:</h6>
                     <a class="collapse-item {{ Request::is('admin/create') ? 'active' : '' }}"
                         href="{{ url('/admin/create') }}">Tambah
                         Admin</a>
-                    <a class="collapse-item {{ Request::is('admin') ? 'active' : '' }}" href="{{ url('/admin') }}">
-                        Daftar Admin</a>
+                    <a class="collapse-item {{ (Request::is('admin') or Request::is('admin/[1-99999]')) ? 'active' : '' }}"
+                        href="/admin">Daftar Admin</a>
                     <a class="collapse-item {{ Request::is('admin/bin') ? 'active' : '' }}"
                         href="{{ route('admin.bin') }}">Restore
                         Admin</a>
-                    <h6 class="collapse-header">Siswa:</h6>
-                    <a class="collapse-item {{ Request::is('agen/create') ? 'active' : '' }}"
-                        href="{{ url('/agen/create') }}">Tambah
-                        Siswa</a>
-                    <a class="collapse-item {{ (Request::is('agen') or Request::is('agen/[1-99999]')) ? 'active' : '' }}"
-                        href="/agen">Daftar Siswa</a>
-                    <a class="collapse-item {{ Request::is('agen/bin') ? 'active' : '' }}"
-                        href="{{ route('agen.bin') }}">Restore
-                        Siswa</a>
-                @elseif (Auth::user()->role == 2)
-                    <h6 class="collapse-header">Siswa:</h6>
+                @endif
+                @if (Auth::user()->role == 'Administrator' || Auth::user()->role == 'Admin')
+                    <h6 class="collapse-header">Fitur Siswa:</h6>
                     <a class="collapse-item {{ Request::is('agen/create') ? 'active' : '' }}"
                         href="{{ url('/agen/create') }}">Tambah
                         Siswa</a>

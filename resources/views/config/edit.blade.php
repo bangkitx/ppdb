@@ -73,7 +73,7 @@
                                 <select id="gelombang"
                                     class="form-select form-control @error('gelombang') is-invalid @enderror"
                                     name="gelombang" required>
-                                    <option value="" selected disabled>Pilih Gelombang
+                                    <option value="" disabled>Pilih Gelombang
                                     </option>
                                     <option value="Gelombang 1" {{ old('gelombang') == 'Gelombang 1' ? 'selected' : '' }}>
                                         Gelombang 1
@@ -88,39 +88,39 @@
                                     </span>
                                 @enderror
                         </tr>
-                            <td>Link WhatsApp</td>
-                            <td colspan="2"><input type="name" id="redirect_wa" name="redirect_wa"
-                                    aria-label="redirect_wa" class="form-control" value="{{ $config->redirect_wa }}"></td>
-                            
-                            <tr>
-                             <td>Pesan Informasi</td>
-                             <td colspan="2"><input type="name" id="pesan" name="pesan" maxlength="1000"
-                                aria-label="pesan" class="form-control" value="{{ $config->pesan }}"></td>
-                            </tr>
+                        <td>Link WhatsApp</td>
+                        <td colspan="2"><input type="name" id="redirect_wa" name="redirect_wa"
+                                aria-label="redirect_wa" class="form-control" value="{{ $config->redirect_wa }}"></td>
 
-                            <tr>
-                                <td>Kuota Pendaftaran Perempuan</td>
-                                <td colspan="2"><input type="name" id="kuotap" name="kuotap"
-                                   aria-label="kuotap" class="form-control" value="{{ $config->kuotap }}" pattern="^[0-9]+$"></td>
-                               </tr>
-                               <tr>
-                                <td>Kuota Pendaftaran Laki-Laki</td>
-                                <td colspan="2"><input type="name" id="kuotal" name="kuotal"
-                                   aria-label="kuotal" class="form-control" value="{{ $config->kuotal }}" pattern="^[0-9]+$"></td>
-                               </tr>
+                        <tr>
+                            <td>Pesan Informasi</td>
+                            <td colspan="2"><input type="name" id="pesan" name="pesan" maxlength="1000"
+                                    aria-label="pesan" class="form-control" value="{{ $config->pesan }}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Kuota Pendaftaran Perempuan</td>
+                            <td colspan="2"><input type="name" id="kuotap" name="kuotap" aria-label="kuotap"
+                                    class="form-control" value="{{ $config->kuotap }}" pattern="^[0-9]+$"></td>
+                        </tr>
+                        <tr>
+                            <td>Kuota Pendaftaran Laki-Laki</td>
+                            <td colspan="2"><input type="name" id="kuotal" name="kuotal" aria-label="kuotal"
+                                    class="form-control" value="{{ $config->kuotal }}" pattern="^[0-9]+$"></td>
+                        </tr>
                         <tr>
                             <td>Kelulusan</td>
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="pengumuman" value="0"
-                                        id="pengumuman_tutup" {{ old('pengumuman') == '0' ? 'checked' : '' }}>
+                                        id="pengumuman_tutup" {{ $config->pengumuman == '0' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="pengumuman_tutup">Tutup</label>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="pengumuman" value="1"
-                                        id="pengumuman_buka" {{ old('pengumuman') == '1' ? 'checked' : '' }}>
+                                        id="pengumuman_buka" {{ $config->pengumuman == '1' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="pengumuman_buka">Buka</label>
                                 </div>
                             </td>
@@ -193,49 +193,47 @@
         <button class="btn btn-primary btn-block" type="submit">Submit perubahan</a>
 
     </form>
-    
+
     <script>
-function validateNumber(input) {
-    if (input.value.match(/^[0-9]+$/)) {
-        return true;
-    } else {
-        return false;
-    }
-}
+        function validateNumber(input) {
+            if (input.value.match(/^[0-9]+$/)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
-$(document).ready(function() {
-    $("#kuotal").on("input", function() {
-        if (!validateNumber(this)) {
-            this.value = this.value.replace(/[^0-9]/g, "");
-        }
-    });
+        $(document).ready(function() {
+            $("#kuotal").on("input", function() {
+                if (!validateNumber(this)) {
+                    this.value = this.value.replace(/[^0-9]/g, "");
+                }
+            });
 
-    $("#kuotap").on("input", function() {
-        if (!validateNumber(this)) {
-            this.value = this.value.replace(/[^0-9]/g, "");
-        }
-    });
-    $("#nominal_pembayaran").on("input", function() {
-        if (!validateNumber(this)) {
-            this.value = this.value.replace(/[^0-9]/g, "");
-        }
-    });
-    $("#order_id_midtrans").on("input", function() {
-        if (!validateNumber(this)) {
-            this.value = this.value.replace(/[^0-9]/g, "");
-        }
-    });
-});
-
-</script>
+            $("#kuotap").on("input", function() {
+                if (!validateNumber(this)) {
+                    this.value = this.value.replace(/[^0-9]/g, "");
+                }
+            });
+            $("#nominal_pembayaran").on("input", function() {
+                if (!validateNumber(this)) {
+                    this.value = this.value.replace(/[^0-9]/g, "");
+                }
+            });
+            $("#order_id_midtrans").on("input", function() {
+                if (!validateNumber(this)) {
+                    this.value = this.value.replace(/[^0-9]/g, "");
+                }
+            });
+        });
+    </script>
     <script>
         const avatarInput = document.getElementById('upload');
         const avatarLabel = document.querySelector('label[for="upload"]');
-        
+
         avatarInput.addEventListener('change', function() {
-          const filename = avatarInput.files[0].name;
-          avatarLabel.textContent = filename;
+            const filename = avatarInput.files[0].name;
+            avatarLabel.textContent = filename;
         });
     </script>
 @endsection
-

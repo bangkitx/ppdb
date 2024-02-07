@@ -22,9 +22,9 @@ class UsersExport implements FromView
         $query = DB::table('users')
             ->join('payments', 'users.id', '=', 'payments.user_id')
             ->join('registration', 'users.id', '=', 'registration.user_id')
-            // ->join('reRegistration', 'users.id', '=', 'reRegistration.user_id')
+        // ->join('reRegistration', 'users.id', '=', 'reRegistration.user_id')
             ->select('users.*', 'payments.*', 'registration.*')
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->where('payments.status_payment', 2)
             ->where('payments.status', 2);
 

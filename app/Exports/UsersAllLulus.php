@@ -22,10 +22,10 @@ class UsersAllLulus implements FromView
         $query = DB::table('users')
             ->join('payments', 'users.id', '=', 'payments.user_id')
             ->join('registration', 'users.id', '=', 'registration.user_id')
-            // ->join('reRegistration', 'users.id', '=', 'reRegistration.user_id')
+        // ->join('reRegistration', 'users.id', '=', 'reRegistration.user_id')
             ->join('testResult', 'registration.id', '=', 'testResult.datapokok_id')
-            ->select('users.*', 'payments.*', 'registration.*','testResult.status')
-            ->where('users.role', 1)
+            ->select('users.*', 'payments.*', 'registration.*', 'testResult.status')
+            ->where('users.role', 'Siswa')
             ->where('payments.status_payment', 2)
             ->where('payments.status', 2)
             ->where('testResult.status', 'Lulus');

@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Kepala sekolah',
             'email' => 'ppdbsmptq@email.com',
-            'role' => 0,
+            'role' => 'Administrator',
             'gelombang' => 'Gelombang 1',
             'password' => bcrypt('ppdb1212'),
         ]);
@@ -108,9 +108,9 @@ class DatabaseSeeder extends Seeder
             'gelombang' => 'Gelombang 1',
             'pengumuman' => 0,
             'redirect_wa' => 'https://web.whatsapp.com',
-            'pesan'=> 'Untuk memastikan Anda mendapatkan informasi terbaru dan dapat berkomunikasi dengan mudah dengan rekan-rekan serta pengajar Anda, kami mengundang Anda untuk bergabung dengan grup WhatsApp resmi kami.',
-            'kuotap'=> '70',
-            'kuotal'=>'80',
+            'pesan' => 'Untuk memastikan Anda mendapatkan informasi terbaru dan dapat berkomunikasi dengan mudah dengan rekan-rekan serta pengajar Anda, kami mengundang Anda untuk bergabung dengan grup WhatsApp resmi kami.',
+            'kuotap' => '70',
+            'kuotal' => '80',
             'nominal_pembayaran' => '250000',
             'midtrans_merchant_id' => 'G128217183',
             'midtrans_client_key' => 'SB-Mid-client-4etAajAoLwuUl9zu',

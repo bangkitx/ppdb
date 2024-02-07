@@ -175,7 +175,7 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 
-                @if (Auth::user()->role == 0 || Auth::user()->role == 2)
+                @if (Auth::user()->role == 'Administrator')
                     <a class="dropdown-item" href="/profile">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profil

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Config;
+use App\Models\Datapokok;
+use App\Models\Nilai;
+use App\Models\Payment;
+use App\Models\Policy;
+use App\Models\RegistrasiUlang;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,40 +21,38 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $query = User::where('role', 2);
+        $query = User::withoutTrashed()->where('role', 'Admin');
 
-// Mencari berdasarkan nama
+        // Mencari berdasarkan nama
         if ($search = $request->input('cari')) {
             $query->where('name', 'like', "%{$search}%");
         }
 
-// Pagination
-        $dataagen = $query->sortable()->paginate(5);
-        $dataagen->appends($request->all());
+        // Pagination
+        $dataadmin = $query->sortable()->paginate(5);
+        $dataadmin->appends($request->all());
 
-        return view('agen.admin', [
-            'agen' => $dataagen,
+        return view('admin.index', [
+            'admin' => $dataadmin,
         ]);
 
     }
 
     public function bin(Request $request)
     {
-        $cari = $request->query('cari');
+        $query = User::onlyTrashed()->where('role', 'Admin');
 
-        $user = User::onlyTrashed();
-
-        if (!empty($cari)) {
-            $dataagen = $user->where('name', 'like', "%" . $cari . "%")
-                ->sortable();
-            //
-        } else {
-            $dataagen = $user->sortable();
+        // Mencari berdasarkan nama
+        if ($search = $request->input('cari')) {
+            $query->where('name', 'like', "%{$search}%");
         }
 
-        $dataagen = $user->paginate(5);
-        return view('agen.binadmin')->with([
-            'agen' => $dataagen,
+        // Pagination
+        $dataadmin = $query->sortable()->paginate(5);
+        $dataadmin->appends($request->all());
+
+        return view('admin.bin', [
+            'admin' => $dataadmin,
         ]);
     }
 
@@ -60,8 +63,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('agen.createadmin');
-
+        return view('admin.create');
     }
 
     /**
@@ -73,7 +75,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $gelombang = Config::where('gelombang', '!=', null)->first()->gelombang;
-        $role = 2;
+        $role = 'Admin';
 
         $user = User::create([
             'name' => $request->name,
@@ -120,25 +122,6 @@ class AdminController extends Controller
         //
     }
 
-    public function restore($id)
-    {
-        $user = User::onlyTrashed()->findOrFail($id);
-        $user->restore();
-
-        return redirect('admin/bin')->with('status', 'Admin ' . $user->name . ' berhasil dikembalikan!');
-    }
-
-    public function forceDelete($id)
-    {
-
-        $agen = User::onlyTrashed()->findOrFail($id);
-
-        $nama = $agen->name;
-        $agen->forceDelete();
-
-        return redirect('admin/bin')->with('status', 'Admin ' . $nama . ' berhasil dihapus!');
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -147,12 +130,51 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        $agen = User::where('id', $id)->first();
 
-        $nama = $agen->name;
+        $admin = User::where('id', $id)->first();
+
+        $nama = $admin->name;
         User::destroy($id);
 
-        return redirect('admin')->with('status', 'Admin ' . $nama . ' berhasil dihapus!');
-
+        return redirect('agen')->with('status', 'Admin ' . $nama . ' berhasil dihapus!');
     }
+
+    public function forceDelete($id)
+    {
+
+        $agen = User::onlyTrashed()->findOrFail($id);
+
+        if (!empty($agen->payment)) {
+            Payment::destroy($agen->id);
+        }
+
+        if (!empty($agen->datapokok)) {
+            if (!empty($agen->datapokok->policy)) {
+                Policy::destroy($agen->datapokok->policy->id);
+            }
+            if (!empty($agen->datapokok->nilai)) {;
+                Nilai::destroy($agen->datapokok->nilai->id);
+            }
+            Datapokok::destroy($agen->datapokok->id);
+        }
+
+        if (!empty($agen->registrasi_ulang)) {
+            RegistrasiUlang::destroy($agen->registrasi_ulang->id);
+        }
+        // return $agen;
+        $nama = $agen->name;
+        $agen->forceDelete();
+
+        return redirect('admin/bin')->with('status', 'Admin ' . $nama . ' berhasil dihapus!');
+    }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+
+        $user->restore();
+
+        return redirect('admin/bin')->with('status', 'Admin ' . $user->name . ' berhasil dikembalikan!');
+    }
+
 }

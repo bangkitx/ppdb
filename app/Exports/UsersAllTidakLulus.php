@@ -24,7 +24,7 @@ class UsersAllTidakLulus implements FromView
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->join('testResult', 'registration.id', '=', 'testResult.datapokok_id')
             ->select('users.*', 'payments.*', 'registration.*', 'testResult.status')
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->where('payments.status_payment', 2)
             ->where('payments.status', 2)
             ->where('testResult.status', 'Tidak Lulus');

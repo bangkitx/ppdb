@@ -77,7 +77,7 @@ class RegisterController extends Controller
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'role' => 1,
+                'role' => 'Siswa',
                 'gelombang' => $gelombang,
                 'password' => Hash::make($data['password']),
                 'avatar' => '/images/' . $avatarname,
@@ -87,7 +87,7 @@ class RegisterController extends Controller
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'role' => 1,
+                'role' => 'Siswa',
                 'gelombang' => $gelombang,
                 'password' => Hash::make($data['password']),
             ]);
