@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgenController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrasiUlangController;
@@ -20,38 +22,24 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-// Route::get('/persediaan', [BisnisController::class, 'stock']);
-// Route::prefix('admin')->middleware(['auth', 'admin'])->group(function(){
-
-// Route::prefix('persediaan')->middleware('auth')->group(function(){
-//     Route::resource('/transaksi', TransaksiController::class);
-//     Route::resource('/persediaan', ProdukController::class);
-//     Route::resource('/agen', AgenController::class);
-
-// });
-
-// });
 Route::get('/', [SiswaController::class, 'awal']);
 
 Route::resource('/registrasi', RegistrasiUlangController::class);
 Route::resource('/payment', PaymentController::class);
-// Route::post('/daftar', [DatapokokController::class, 'store']);
-// Route::resource('/datapokok', DatapokokController::class);
 
 Route::middleware(['auth'])->group(function () {
 
-    // Route::middleware(['checkUserRole'])->group(function () {
-    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    // Route::get('/siswa', [App\Http\Controllers\SiswaController::class, 'index'])->name('siswa');
-    // });
     Route::get('/bayar', [PaymentController::class, 'bayar'])->name('bayar');
     Route::get('/agen/bin', [AgenController::class, 'bin'])->name('agen.bin');
     Route::post('/agen/bin/{id}', [AgenController::class, 'restore'])->name('agen.restore');
     Route::delete('/agen/bin/{id}', [AgenController::class, 'forceDelete'])->name('agen.forceDelete');
+    Route::get('/admin/bin', [AdminController::class, 'bin'])->name('admin.bin');
+    Route::post('/admin/bin/{id}', [AdminController::class, 'restore'])->name('admin.restore');
+    Route::delete('/admin/bin/{id}', [AdminController::class, 'forceDelete'])->name('admin.forceDelete');
+
     Route::resource('/agen', AgenController::class);
     Route::resource('/siswa', SiswaController::class)->except(['show', 'edit', 'update']);
 
-    // Route::get('/daftar', [AgenController::class, 'create']);
     Route::get('/agen/cek', [AgenController::class, 'show']);
     Route::get('/agen/cetak/{id}', [AgenController::class, 'cetak']);
     Route::get('/siswa/cetak/{id}', [SiswaController::class, 'cetak']);
@@ -62,12 +50,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/siswa/registrasi/{id}', [SiswaController::class, 'registrasiUlang']);
     Route::get('/siswa/cetakpokok/{id}', [SiswaController::class, 'cetakpokok']);
 
-    // Route::resource('/register', RegistersUsers::class);
     Route::resource('/profile', ProfileController::class);
     Route::resource('/registrasi_ulang', RegistrasiUlangController::class);
 });
 
-Route::middleware(['admin:1'])->group(function () {
+Route::middleware(['role:Siswa'])->group(function () {
     Route::get('/siswa', 'SiswaController@index')->name('siswa');
     Route::get('/siswa/edit', [SiswaController::class, 'edit']);
     Route::get('/siswa/cetak-kartu', [SiswaController::class, 'cetak_kartu'])->name('siswa.cetak_kartu');
@@ -78,22 +65,31 @@ Route::middleware(['admin:1'])->group(function () {
     Route::get('/siswa/registrasi/{id}', [SiswaController::class, 'registrasiUlang']);
 });
 
-Route::middleware(['admin:0'])->group(function () {
-    // Route::get('/', [SiswaController::class,'awal']);
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::resource('/agen', AgenController::class);
+Route::middleware(['role:Administrator'])->group(function () {
+    Route::resource('/admin', AdminController::class);
     Route::get('/config', [ConfigController::class, 'index']);
     Route::get('/config/edit', [ConfigController::class, 'edit']);
     Route::put('/config/update', [ConfigController::class, 'update']);
-    // Route::get('/excel/sudah-bayar', [SiswaController::class, 'export_sudah_bayar']);
+    Route::get('/admin/bin', [AdminController::class, 'bin'])->name('admin.bin');
+    Route::post('/admin/bin/{id}', [AdminController::class, 'restore'])->name('admin.restore');
+    Route::delete('/admin/bin/{id}', [AdminController::class, 'forceDelete'])->name('admin.forceDelete');
+
+});
+
+Route::middleware(['role:Administrator,Admin'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::resource('/agen', AgenController::class);
 
     Route::get('/excel/sudah-bayar', [AgenController::class, 'exportSiswaSudahBayar']);
     Route::get('/excel/sudah-lulus', [AgenController::class, 'export_sudah_lulus']);
     Route::get('/excel/tidak-lulus', [AgenController::class, 'export_tidak_lulus']);
     Route::get('/excel/registrasi-ulang', [AgenController::class, 'export_siswa_sudah_registrasi_ulang']);
+    Route::get('/agen/bin', [AgenController::class, 'bin'])->name('agen.bin');
+    Route::post('/agen/bin/{id}', [AgenController::class, 'restore'])->name('agen.restore');
+    Route::delete('/agen/bin/{id}', [AgenController::class, 'forceDelete'])->name('agen.forceDelete');
 
 });
 
 Auth::routes();
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'indexsiswa'])->name('siswahome');
+Route::get('/dashboard', [HomeController::class, 'indexsiswa'])->name('siswahome');

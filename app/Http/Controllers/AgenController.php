@@ -36,7 +36,7 @@ class AgenController extends Controller
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->select('users.*', 'payments.*', 'registration.*')
             ->where('payments.status', 2)
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->get();
     }
 
@@ -47,7 +47,7 @@ class AgenController extends Controller
             ->join('registration', 'users.id', '=', 'registration.user_id')
             ->select('users.*', 'payments.*', 'registration.*')
             ->where('payments.status', 2)
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->where('registration.user_id', '!=', null)
             ->get();
         // dd($users);
@@ -56,14 +56,14 @@ class AgenController extends Controller
     public function get_user_with_all_registerd_account()
     {
         $users = DB::table('users')
-            ->where('users.role', 1)
+            ->where('users.role', 'Siswa')
             ->get();
         dd($users);
     }
 
     public function index(Request $request)
     {
-        $query = User::withoutTrashed();
+        $query = User::withoutTrashed()->where('role', 'Siswa');
 
         // Mencari berdasarkan nama
         if ($search = $request->input('cari')) {
@@ -100,7 +100,7 @@ class AgenController extends Controller
     {
         $cari = $request->query('cari');
 
-        $user = User::onlyTrashed();
+        $user = User::onlyTrashed()->where('role', 'Siswa');
 
         if (!empty($cari)) {
             $dataagen = $user->where('name', 'like', "%" . $cari . "%")

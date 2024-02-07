@@ -1,11 +1,12 @@
-@extends('layouts.main')
 
-@section('container')
+
+<?php $__env->startSection('container'); ?>
     <h2 class="mb-3">Konfigurasi Tanggal PPDB</h2>
 
     <form action="/config/update" method="post">
-        {!! csrf_field() !!}
-        @method('PUT')
+        <?php echo csrf_field(); ?>
+
+        <?php echo method_field('PUT'); ?>
         <div class="container mb-5">
             <div class="table-responsive">
                 <table class="table table-striped mb-5">
@@ -21,106 +22,116 @@
                             <td>Pendaftaran Akun PPDB</td>
                             <td><input type="date" id="pendaftaran_akun_ppdb_start" name="pendaftaran_akun_ppdb_start"
                                     aria-label="pendaftaran_akun_ppdb_start" class="form-control"
-                                    value="{{ $config->pendaftaran_akun_ppdb_start }}"></td>
+                                    value="<?php echo e($config->pendaftaran_akun_ppdb_start); ?>"></td>
                             <td><input type="date" id="pendaftaran_akun_ppdb_due" name="pendaftaran_akun_ppdb_due"
                                     aria-label="pendaftaran_akun_ppdb_due" class="form-control"
-                                    value="{{ $config->pendaftaran_akun_ppdb_due }}"></td>
+                                    value="<?php echo e($config->pendaftaran_akun_ppdb_due); ?>"></td>
                         </tr>
                         <tr>
                             <td>Pendaftaran Sekolah</td>
                             <td><input type="date" id="pengumpulan_berkas_start" name="pengumpulan_berkas_start"
                                     aria-label="pengumpulan_berkas_start" class="form-control"
-                                    value="{{ $config->pengumpulan_berkas_start }}"></td>
+                                    value="<?php echo e($config->pengumpulan_berkas_start); ?>"></td>
                             <td><input type="date" id="pengumpulan_berkas_due" name="pengumpulan_berkas_due"
                                     aria-label="pengumpulan_berkas_due" class="form-control"
-                                    value="{{ $config->pengumpulan_berkas_due }}"></td>
+                                    value="<?php echo e($config->pengumpulan_berkas_due); ?>"></td>
                         </tr>
                         <tr>
                             <td>Tes Akademik</td>
                             <td><input type="date" id="test_akademik_start" name="test_akademik_start"
                                     aria-label="test_akademik_start" class="form-control"
-                                    value="{{ $config->test_akademik_start }}"></td>
+                                    value="<?php echo e($config->test_akademik_start); ?>"></td>
                             <td><input type="date" id="test_akademik_due" name="test_akademik_due"
                                     aria-label="test_akademik_due" class="form-control"
-                                    value="{{ $config->test_akademik_due }}"></td>
+                                    value="<?php echo e($config->test_akademik_due); ?>"></td>
                         </tr>
                         <tr>
                             <td>Tes Baca Al-Qur'an</td>
                             <td><input type="date" id="test_baca_al_quran_start" name="test_baca_al_quran_start"
                                     aria-label="test_baca_al_quran_start" class="form-control"
-                                    value="{{ $config->test_baca_al_quran_start }}"></td>
+                                    value="<?php echo e($config->test_baca_al_quran_start); ?>"></td>
                             <td><input type="date" id="test_baca_al_quran_due" name="test_baca_al_quran_due"
                                     aria-label="test_baca_al_quran_due" class="form-control"
-                                    value="{{ $config->test_baca_al_quran_due }}"></td>
+                                    value="<?php echo e($config->test_baca_al_quran_due); ?>"></td>
                         </tr>
-                        {{-- <tr>
-                        <td>Tes Wawancara</td>
-                        <td><input type="date" id="test_wawancara_start" name="test_wawancara_start" aria-label="test_wawancara_start" class="form-control" value="{{$config->test_wawancara_start}}"></td>
-                        <td><input type="date" id="test_wawancara_due" name="test_wawancara_due" aria-label="test_wawancara_due" class="form-control" value="{{$config->test_wawancara_due}}"></td>
-                    </tr> --}}
+                        
                         <tr>
                             <td>Pendaftaran Ulang</td>
                             <td><input type="date" id="pendaftaran_ulang_start" name="pendaftaran_ulang_start"
                                     aria-label="pendaftaran_ulang_start" class="form-control"
-                                    value="{{ $config->pendaftaran_ulang_start }}"></td>
+                                    value="<?php echo e($config->pendaftaran_ulang_start); ?>"></td>
                             <td><input type="date" id="pendaftaran_ulang_due" name="pendaftaran_ulang_due"
                                     aria-label="pendaftaran_ulang_due" class="form-control"
-                                    value="{{ $config->pendaftaran_ulang_due }}"></td>
+                                    value="<?php echo e($config->pendaftaran_ulang_due); ?>"></td>
                         </tr>
                         <tr>
                             <td>Gelombang Pendaftaran</td>
                             <td colspan="2">
                                 <select id="gelombang"
-                                    class="form-select form-control @error('gelombang') is-invalid @enderror"
+                                    class="form-select form-control <?php $__errorArgs = ['gelombang'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
                                     name="gelombang" required>
                                     <option value="" disabled>Pilih Gelombang
                                     </option>
-                                    <option value="Gelombang 1" {{ old('gelombang') == 'Gelombang 1' ? 'selected' : '' }}>
+                                    <option value="Gelombang 1" <?php echo e(old('gelombang') == 'Gelombang 1' ? 'selected' : ''); ?>>
                                         Gelombang 1
                                     </option>
-                                    <option value="Gelombang 2" {{ old('gelombang') == 'Gelombang 2' ? 'selected' : '' }}>
+                                    <option value="Gelombang 2" <?php echo e(old('gelombang') == 'Gelombang 2' ? 'selected' : ''); ?>>
                                         Gelombang 2
                                     </option>
                                 </select>
-                                @error('jenis_kelamin')
+                                <?php $__errorArgs = ['jenis_kelamin'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong><?php echo e($message); ?></strong>
                                     </span>
-                                @enderror
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </tr>
                         <td>Link WhatsApp</td>
                         <td colspan="2"><input type="name" id="redirect_wa" name="redirect_wa"
-                                aria-label="redirect_wa" class="form-control" value="{{ $config->redirect_wa }}"></td>
+                                aria-label="redirect_wa" class="form-control" value="<?php echo e($config->redirect_wa); ?>"></td>
 
                         <tr>
                             <td>Pesan Informasi</td>
                             <td colspan="2"><input type="name" id="pesan" name="pesan" maxlength="1000"
-                                    aria-label="pesan" class="form-control" value="{{ $config->pesan }}"></td>
+                                    aria-label="pesan" class="form-control" value="<?php echo e($config->pesan); ?>"></td>
                         </tr>
 
                         <tr>
                             <td>Kuota Pendaftaran Perempuan</td>
                             <td colspan="2"><input type="name" id="kuotap" name="kuotap" aria-label="kuotap"
-                                    class="form-control" value="{{ $config->kuotap }}" pattern="^[0-9]+$"></td>
+                                    class="form-control" value="<?php echo e($config->kuotap); ?>" pattern="^[0-9]+$"></td>
                         </tr>
                         <tr>
                             <td>Kuota Pendaftaran Laki-Laki</td>
                             <td colspan="2"><input type="name" id="kuotal" name="kuotal" aria-label="kuotal"
-                                    class="form-control" value="{{ $config->kuotal }}" pattern="^[0-9]+$"></td>
+                                    class="form-control" value="<?php echo e($config->kuotal); ?>" pattern="^[0-9]+$"></td>
                         </tr>
                         <tr>
                             <td>Kelulusan</td>
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="pengumuman" value="0"
-                                        id="pengumuman_tutup" {{ $config->pengumuman == '0' ? 'checked' : '' }}>
+                                        id="pengumuman_tutup" <?php echo e($config->pengumuman == '0' ? 'checked' : ''); ?>>
                                     <label class="form-check-label" for="pengumuman_tutup">Tutup</label>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="pengumuman" value="1"
-                                        id="pengumuman_buka" {{ $config->pengumuman == '1' ? 'checked' : '' }}>
+                                        id="pengumuman_buka" <?php echo e($config->pengumuman == '1' ? 'checked' : ''); ?>>
                                     <label class="form-check-label" for="pengumuman_buka">Buka</label>
                                 </div>
                             </td>
@@ -129,8 +140,8 @@
                             <td>Biaya Registrasi</td>
                             <td colspan="2"><input type="name" id="nominal_pembayaran" name="nominal_pembayaran"
                                     aria-label="nominal_pembayaran" class="form-control"
-                                    value="{{ $config->nominal_pembayaran }}" pattern="^[0-9]+$"></td>
-                            {{-- <td><input type="date" id="pendaftaran_ulang_due" name="pendaftaran_ulang_due" aria-label="pendaftaran_ulang_due" class="form-control" value="{{$config->pendaftaran_ulang_due}}"></td> --}}
+                                    value="<?php echo e($config->nominal_pembayaran); ?>" pattern="^[0-9]+$"></td>
+                            
                         </tr>
 
                     </tbody>
@@ -145,8 +156,7 @@
                             <th colspan="3">
                                 Midtrans Configuration
                             </th>
-                            {{-- <th>Tanggal Mulai</th>
-                            <th>Tanggal Berakhir</th> --}}
+                            
                         </tr>
                     </thead>
                     <tr>
@@ -154,38 +164,38 @@
                         <td colspan="2">
                             <input type="name" id="midtrans_merchant_id" name="midtrans_merchant_id"
                                 aria-label="midtrans_merchant_id" class="form-control"
-                                value="{{ $config->midtrans_merchant_id }}">
+                                value="<?php echo e($config->midtrans_merchant_id); ?>">
                         </td>
-                        {{-- <td>{{ $config->pendaftaran_ulang_due }}</td> --}}
+                        
                     </tr>
                     <tr>
                         <td>Midtrans Client Key</td>
                         <td colspan="2">
                             <input type="name" id="midtrans_client_key" name="midtrans_client_key"
                                 aria-label="midtrans_client_key" class="form-control"
-                                value="{{ $config->midtrans_client_key }}">
+                                value="<?php echo e($config->midtrans_client_key); ?>">
                         </td>
-                        {{-- <td>{{ $config->pendaftaran_ulang_due }}</td> --}}
+                        
                     </tr>
                     <tr>
                         <td>Midtrans Server Key</td>
                         <td colspan="2">
                             <input type="name" id="midtrans_server_key" name="midtrans_server_key"
                                 aria-label="midtrans_server_key" class="form-control"
-                                value="{{ $config->midtrans_server_key }}">
+                                value="<?php echo e($config->midtrans_server_key); ?>">
                         </td>
-                        {{-- <td>{{ $config->pendaftaran_ulang_due }}</td> --}}
+                        
                     </tr>
                     <tr>
                         <td>Midtrans Order ID</td>
-                        {{-- <td colspan="2"> --}}
+                        
                         <td colspan="2">
                             <input type="name" id="order_id_midtrans" name="order_id_midtrans"
                                 aria-label="order_id_midtrans" class="form-control"
-                                value="{{ $config->order_id_midtrans }}" pattern="^[0-9]+$">
+                                value="<?php echo e($config->order_id_midtrans); ?>" pattern="^[0-9]+$">
                         </td>
-                        {{-- </td> --}}
-                        {{-- <td>{{ $config->pendaftaran_ulang_due }}</td> --}}
+                        
+                        
                     </tr>
                 </table>
             </div>
@@ -236,4 +246,6 @@
             avatarLabel.textContent = filename;
         });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\ppdb\resources\views/config/edit.blade.php ENDPATH**/ ?>

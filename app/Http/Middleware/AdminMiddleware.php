@@ -4,9 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\User;
 use Closure;
-use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class AdminMiddleware
 {
@@ -14,29 +12,29 @@ class AdminMiddleware
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @param  \Closure  $next
+     * @param  string|array  $roles
+     * @return mixed
      */
-    public function handle($request, Closure $next,$role)
+    public function handle($request, Closure $next, ...$roles)
     {
+        // Memeriksa apakah pengguna sudah login
         if (!auth()->check()) {
-            // Pengguna sudah login, lanjutkan ke request selanjutnya
             return redirect('/login');
         }
 
+        // Mendapatkan ID pengguna yang saat ini masuk
+        $userId = auth()->id();
 
-        $userId = auth()->id(); // ID pengguna yang saat ini masuk
-        
+        // Mendapatkan informasi pengguna dari database
         $user = User::find($userId);
 
-        // dd($role);
-        if ($user) {
-            $databaseValue = $user->role; // Ganti dengan nama kolom di database Anda
-            if ($databaseValue === (int)$role) {
-                return $next($request);
-            }
+        // Memeriksa apakah pengguna ada dan memiliki role yang diperlukan
+        if ($user && in_array($user->role, $roles)) {
+            return $next($request);
         }
 
+        // Jika pengguna tidak memiliki akses, munculkan halaman error 403
         return abort(403, 'Unauthorized');
     }
 }
